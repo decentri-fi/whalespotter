@@ -27,6 +27,7 @@
 
     <modules>
         <module>whalespotter-web</module>
+        <module>whalespotter-runner</module>
     </modules>
 
     <dependencies>

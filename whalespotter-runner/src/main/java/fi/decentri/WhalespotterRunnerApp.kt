@@ -1,11 +1,11 @@
-package fi.decentri.whalespotter
+package fi.decentri
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class WhalespotterApp
+class WhalespotterRunnerApp
 
 fun main(args: Array<String>) {
-    runApplication<WhalespotterApp>(*args)
+    runApplication<WhalespotterRunnerApp>(*args)
 }
