@@ -13,6 +13,9 @@ class WebSecurityConfig {
     fun provideSecurityFilterChain(http: HttpSecurity): DefaultSecurityFilterChain {
         http.addFilterBefore(Web3SecurityFilter(), BasicAuthenticationFilter::class.java)
         http.authorizeHttpRequests {
+            it.requestMatchers("/actuator/health").permitAll()
+        }
+        http.authorizeHttpRequests {
             it.requestMatchers("/**").authenticated()
         }
         http.csrf().disable()
