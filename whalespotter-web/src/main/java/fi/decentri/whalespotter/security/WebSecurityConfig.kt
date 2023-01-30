@@ -20,7 +20,9 @@ class WebSecurityConfig {
                     .requestMatchers("/actuator/**").permitAll()
                     .anyRequest().authenticated()
 
-            }.csrf().disable()
+            }
+            .csrf().disable()
+            .cors().disable()
         return http.build()
     }
 
