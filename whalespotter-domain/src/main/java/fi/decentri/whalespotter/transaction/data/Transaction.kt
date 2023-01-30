@@ -1,0 +1,22 @@
+package fi.decentri.whalespotter.transaction.data
+
+import fi.decentri.whalespotter.network.Network
+import jakarta.persistence.*
+import java.math.BigInteger
+import java.util.*
+
+@Entity
+@Table(name = "transactions")
+class Transaction(
+    @Id
+    val id: String,
+    @Enumerated(EnumType.STRING)
+    val network: Network,
+    @Column(name = "from_address")
+    val from: String,
+    @Column(name = "to_address")
+    val to: String?,
+    val block: BigInteger,
+    @Temporal(TemporalType.TIMESTAMP)
+    val time: Date
+)

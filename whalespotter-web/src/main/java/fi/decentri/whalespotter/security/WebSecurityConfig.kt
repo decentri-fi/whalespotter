@@ -11,10 +11,11 @@ class WebSecurityConfig {
 
     @Bean
     fun provideSecurityFilterChain(http: HttpSecurity): DefaultSecurityFilterChain {
-        http.addFilterAfter(Web3SecurityFilter(), BasicAuthenticationFilter::class.java)
+        http.addFilterBefore(Web3SecurityFilter(), BasicAuthenticationFilter::class.java)
         http.authorizeHttpRequests {
             it.requestMatchers("/**").authenticated()
         }
+        http.csrf().disable()
         return http.build()
     }
 

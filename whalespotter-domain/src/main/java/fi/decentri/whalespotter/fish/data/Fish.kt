@@ -8,6 +8,5 @@ class Fish(
     @Id
     var id: String,
     var address: String,
-    var network: String,
     var owner: String
 )

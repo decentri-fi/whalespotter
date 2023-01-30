@@ -3,3 +3,5 @@
 target/
 application-dev.properties
 *.iml
+
+docker/docker_data/

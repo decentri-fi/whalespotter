@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  postgresql:
+    image: postgres:15
+    ports:
+      - 5437:5432
+    volumes:
+      - ./docker_data/postgres:/data/postgres
+    container_name: whalespotter-postgresql
+    environment:
+      POSTGRES_USER: whalespotter
+      POSTGRES_PASSWORD: whalespotter
+      PGDATA: /data/postgres

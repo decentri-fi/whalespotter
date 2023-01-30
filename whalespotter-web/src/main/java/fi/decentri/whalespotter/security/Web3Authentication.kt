@@ -1,8 +1,8 @@
 package fi.decentri.whalespotter.security
 
+import org.apache.catalina.users.GenericUser
 import org.springframework.security.authentication.AbstractAuthenticationToken
-import org.springframework.security.core.Authentication
-import org.springframework.security.core.GrantedAuthority
+import java.security.Principal
 
 class Web3Authentication(
     private val name: String
@@ -22,6 +22,8 @@ class Web3Authentication(
     }
 
     override fun getPrincipal(): Any {
-        return name
+        return Principal {
+            name
+        }
     }
 }
