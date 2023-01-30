@@ -1,4 +1,4 @@
-package fi.decentri.whalespotter.fish
+package fi.decentri.whalespotter.fish.rest
 
 import fi.decentri.whalespotter.fish.command.AddFishCommand
 import fi.decentri.whalespotter.fish.data.Fish

@@ -15,7 +15,6 @@ class DataPopulator(private val fishRepository: FishRepository) {
     fun init() {
         fishRepository.save(
             Fish(
-                id = UUID.randomUUID().toString(),
                 address = "0x83A524af3cf8eB146132A2459664f7680A5515bE",
                 owner = "qds"
             )

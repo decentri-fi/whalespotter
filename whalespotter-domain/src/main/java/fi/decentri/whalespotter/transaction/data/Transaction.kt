@@ -2,7 +2,6 @@ package fi.decentri.whalespotter.transaction.data
 
 import fi.decentri.whalespotter.network.Network
 import jakarta.persistence.*
-import java.math.BigInteger
 import java.util.*
 
 @Entity
@@ -16,7 +15,9 @@ class Transaction(
     val from: String,
     @Column(name = "to_address")
     val to: String?,
-    val block: BigInteger,
+    val block: String,
     @Temporal(TemporalType.TIMESTAMP)
-    val time: Date
+    @Column(name = "block_time")
+    val time: Date,
+    val value: String
 )
