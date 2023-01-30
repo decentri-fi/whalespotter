@@ -1,0 +1,2 @@
+docker build -t defitrack/defitrack:whalespotter-runner-${BRANCH_NAME} whalespotter-runner -f ci/Dockerfile
+docker build -t defitrack/defitrack:whalespotter-web-${BRANCH_NAME} whalespotter-web -f ci/Dockerfile

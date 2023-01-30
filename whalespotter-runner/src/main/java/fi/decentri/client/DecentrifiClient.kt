@@ -2,9 +2,12 @@ package fi.decentri.client
 
 import fi.decentri.client.domain.Claimable
 import fi.decentri.client.domain.Protocol
+import fi.decentri.client.domain.TransactionVO
+import fi.decentri.whalespotter.network.Network
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
+import io.ktor.http.*
 import org.springframework.stereotype.Service
 
 @Service
@@ -16,6 +19,15 @@ class DecentrifiClient(
 
     suspend fun getClaimables(address: String, protocol: Protocol): List<Claimable> {
         return httpClient.get("$baseUrl/${protocol.slug}/$address/claimables").body()
+    }
+
+    suspend fun getTransaction(txId: String, network: Network): TransactionVO? {
+        val retVal = httpClient.get("$baseUrl/networks/${network.slug}/tx/$txId")
+        return if (retVal.status.isSuccess()) {
+            retVal.body()
+        } else {
+            null
+        }
     }
 
     suspend fun getProtocols(): List<Protocol> {
