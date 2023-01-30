@@ -93,11 +93,17 @@
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:10.1.4" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:6.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:6.0.3" level="project" />
-    <orderEntry type="library" name="Maven: io.micrometer:micrometer-observation:1.10.2" level="project" />
-    <orderEntry type="library" name="Maven: io.micrometer:micrometer-commons:1.10.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:6.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:6.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:6.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-actuator:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator-autoconfigure:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.micrometer:micrometer-observation:1.10.2" level="project" />
+    <orderEntry type="library" name="Maven: io.micrometer:micrometer-commons:1.10.2" level="project" />
+    <orderEntry type="library" name="Maven: io.micrometer:micrometer-core:1.10.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.hdrhistogram:HdrHistogram:2.1.12" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.latencyutils:LatencyUtils:2.0.3" level="project" />
     <orderEntry type="module" module-name="whalespotter-domain" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-data-jpa:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-aop:3.0.1" level="project" />

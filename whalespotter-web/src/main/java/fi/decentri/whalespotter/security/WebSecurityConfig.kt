@@ -11,14 +11,14 @@ class WebSecurityConfig {
 
     @Bean
     fun provideSecurityFilterChain(http: HttpSecurity): DefaultSecurityFilterChain {
-        http.addFilterBefore(Web3SecurityFilter(), BasicAuthenticationFilter::class.java)
-        http.authorizeHttpRequests {
-            it.requestMatchers("/actuator/health").permitAll()
-        }
-        http.authorizeHttpRequests {
-            it.requestMatchers("/**").authenticated()
-        }
-        http.csrf().disable()
+        http
+            .addFilterBefore(Web3SecurityFilter(), BasicAuthenticationFilter::class.java)
+            .authorizeHttpRequests {
+                it
+                    .requestMatchers("/actuator/**").permitAll()
+                    .anyRequest().authenticated()
+
+            }.csrf().disable()
         return http.build()
     }
 

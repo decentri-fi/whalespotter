@@ -14,8 +14,10 @@ class Web3SecurityFilter : OncePerRequestFilter() {
         filterChain: FilterChain
     ) {
         val username = request.getHeader("owner")
+        if (username != null) {
+            SecurityContextHolder.getContext().authentication = Web3Authentication(username)
+        }
 
-        SecurityContextHolder.getContext().authentication = Web3Authentication(username)
         filterChain.doFilter(request, response)
     }
 }
