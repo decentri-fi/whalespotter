@@ -32,7 +32,7 @@ class WebSecurityConfig {
     fun provideCorsConfig(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
         configuration.allowedOrigins = listOf("https://whalespotter.decentri.fi", "http://localhost:3000")
-        configuration.allowedMethods = listOf("GET", "POST", "HEAD", "OPTIONS", "PUT")
+        configuration.allowedMethods = listOf("GET", "POST", "HEAD", "OPTIONS", "PUT", "DELETE")
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuration)
         return source
