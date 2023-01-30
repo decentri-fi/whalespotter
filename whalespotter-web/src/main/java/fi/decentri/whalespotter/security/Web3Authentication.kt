@@ -1,6 +1,5 @@
 package fi.decentri.whalespotter.security
 
-import org.apache.catalina.users.GenericUser
 import org.springframework.security.authentication.AbstractAuthenticationToken
 import java.security.Principal
 
@@ -10,11 +9,11 @@ class Web3Authentication(
     emptyList()
 ) {
     override fun getName(): String {
-        return name
+        return name.lowercase()
     }
 
     override fun getCredentials(): Any {
-        return name
+        return name.lowercase()
     }
 
     override fun isAuthenticated(): Boolean {
@@ -23,7 +22,7 @@ class Web3Authentication(
 
     override fun getPrincipal(): Any {
         return Principal {
-            name
+            name.lowercase()
         }
     }
 }
