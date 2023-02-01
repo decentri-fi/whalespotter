@@ -6,10 +6,6 @@
     <artifactId>whalespotter-runner</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <properties>
-        <ktor.version>2.2.1</ktor.version>
-    </properties>
-
     <parent>
         <groupId>fi.decentri</groupId>
         <artifactId>whalespotter-parent</artifactId>
@@ -20,6 +16,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -17,7 +17,7 @@ class CheckClaimablesRunner(
 
     val logger = LoggerFactory.getLogger(this::class.java)
 
-    @Scheduled(fixedDelay = 10000)
+  //  @Scheduled(fixedDelay = 10000)
     fun init() = runBlocking {
         logger.info("starting batch to find claimables")
         val allProtocols = decentrifiClient.getProtocols()

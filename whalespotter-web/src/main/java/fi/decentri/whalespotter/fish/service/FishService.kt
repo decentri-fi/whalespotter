@@ -3,12 +3,15 @@ package fi.decentri.whalespotter.fish.service
 import fi.decentri.whalespotter.fish.command.AddFishCommand
 import fi.decentri.whalespotter.fish.data.Fish
 import fi.decentri.whalespotter.fish.repo.FishRepository
+import fi.decentri.whalespotter.importer.WhalespotterImporterClient
+import kotlinx.coroutines.runBlocking
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class FishService(
-    private val fishRepository: FishRepository
+    private val fishRepository: FishRepository,
+    private val whalespotterImporterClient: WhalespotterImporterClient
 ) {
 
     @Transactional(readOnly = true)
@@ -23,11 +26,15 @@ class FishService(
             }) {
             throw IllegalArgumentException("Fish with address ${addFishCommand.address} already tracked")
         }
-        return fishRepository.save(
+        val fish = fishRepository.save(
             Fish(
                 address = addFishCommand.address,
                 owner = owner
             )
         )
+        runBlocking {
+            whalespotterImporterClient.doImport(fish.address)
+        }
+        return fish
     }
 }
