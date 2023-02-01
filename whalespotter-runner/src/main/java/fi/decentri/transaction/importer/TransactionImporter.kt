@@ -26,13 +26,17 @@ class TransactionImporter(
     suspend fun import(user: String) = coroutineScope {
         val semaphore = Semaphore(10)
         val transactionHashes = alchemyClient.getTransactions(user)
-        val savedTransactions = transactionHashes.map {
-            async {
-                semaphore.withPermit {
-                    decentrifiClient.getTransaction(it, Network.ETHEREUM)
-                }
+        val savedTransactions = transactionHashes
+            .filter {
+                !transactionService.contains(it)
             }
-        }.awaitAll()
+            .map {
+                async {
+                    semaphore.withPermit {
+                        decentrifiClient.getTransaction(it, Network.ETHEREUM)
+                    }
+                }
+            }.awaitAll()
             .filterNotNull()
             .map { txVO ->
                 Transaction(

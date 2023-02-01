@@ -10,16 +10,18 @@ class TransactionService(
     private val transactionRepository: TransactionRepository
 ) {
 
+    @Transactional(readOnly = true)
+    fun contains(txId: String): Boolean {
+        return transactionRepository.existsById(txId)
+    }
+
     @Transactional
     fun save(transactionList: List<Transaction>) {
-        transactionList.distinctBy {
+        val tx = transactionList.distinctBy {
             it.id.lowercase()
-        }.forEach { transaction ->
-            if (transactionRepository.findById(transaction.id).isEmpty) {
-                transactionRepository.save(
-                    transaction
-                )
-            }
+        }.filter {
+            !contains(it.id)
         }
+        transactionRepository.saveAll(tx)
     }
 }
