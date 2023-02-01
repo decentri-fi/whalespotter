@@ -6,6 +6,6 @@ import org.springframework.data.repository.query.Param
 
 interface TransactionRepository : JpaRepository<Transaction, String> {
 
-    fun findAllByFromOrTo(@Param("from") from: String, @Param("to") to: String): List<Transaction>
+    fun findAllByFromOrToOrderByTimeDesc(@Param("from") from: String, @Param("to") to: String): List<Transaction>
 
 }

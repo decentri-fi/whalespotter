@@ -10,6 +10,6 @@ class TransactionService(private val transactionRepository: TransactionRepositor
 
     @Transactional(readOnly = true)
     fun getAll(owner: String): List<Transaction> {
-        return transactionRepository.findAllByFromOrTo(owner, owner)
+        return transactionRepository.findAllByFromOrToOrderByTimeDesc(owner, owner)
     }
 }

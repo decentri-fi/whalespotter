@@ -41,7 +41,7 @@ class TransactionImporter(
                     from = txVO.from,
                     to = txVO.to,
                     block = txVO.blockNumber.toString(),
-                    time = Date(),
+                    time = Date(txVO.time * 1000),
                     value = txVO.value.toString()
                 )
             }
