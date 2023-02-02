@@ -22,8 +22,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <kotlin.version>1.7.22</kotlin.version>
-        <ktor.version>2.2.1</ktor.version>
+        <kotlin.version>1.8.0</kotlin.version>
+        <ktor.version>2.2.3</ktor.version>
         <web3j.version>4.9.5</web3j.version>
     </properties>
 
