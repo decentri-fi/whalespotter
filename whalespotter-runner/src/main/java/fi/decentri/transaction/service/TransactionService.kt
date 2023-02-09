@@ -16,12 +16,12 @@ class TransactionService(
     }
 
     @Transactional
-    fun save(transactionList: List<Transaction>) {
+    fun save(transactionList: List<Transaction>): MutableList<Transaction> {
         val tx = transactionList.distinctBy {
             it.id.lowercase()
         }.filter {
             !contains(it.id)
         }
-        transactionRepository.saveAll(tx)
+        return transactionRepository.saveAll(tx)
     }
 }

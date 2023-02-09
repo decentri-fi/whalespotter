@@ -2,6 +2,7 @@ package fi.decentri.transaction.importer
 
 import fi.decentri.alchemy.AlchemyClient
 import fi.decentri.client.DecentrifiClient
+import fi.decentri.event.DefiEventImporter
 import fi.decentri.transaction.service.TransactionService
 import fi.decentri.whalespotter.network.Network
 import fi.decentri.whalespotter.transaction.data.Transaction
@@ -18,7 +19,8 @@ import java.util.*
 class TransactionImporter(
     private val transactionService: TransactionService,
     private val decentrifiClient: DecentrifiClient,
-    private val alchemyClient: AlchemyClient
+    private val alchemyClient: AlchemyClient,
+    private val defiEventImporter: DefiEventImporter
 ) {
 
     val logger = LoggerFactory.getLogger(this::class.java)
@@ -51,7 +53,10 @@ class TransactionImporter(
             }
 
         val transactions = transactionService.save(savedTransactions)
-        logger.info("Saved ${savedTransactions.size} transactions")
+        transactions.forEach {
+            defiEventImporter.import(it)
+        }
+        logger.info("Saved ${transactions.size} transactions")
         return@coroutineScope transactions
     }
 }

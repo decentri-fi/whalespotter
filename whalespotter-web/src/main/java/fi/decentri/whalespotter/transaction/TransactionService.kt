@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional
 class TransactionService(private val transactionRepository: TransactionRepository) {
 
     @Transactional(readOnly = true)
-    fun getAll(owner: String): List<Transaction> {
-        return transactionRepository.findAllByFromOrToOrderByTimeDesc(owner, owner)
+    fun getAll(address: String): List<Transaction> {
+        return transactionRepository.findAllByFromOrToOrderByTimeDesc(address, address)
     }
 }

@@ -3,6 +3,7 @@ package fi.decentri.client
 import fi.decentri.client.domain.Claimable
 import fi.decentri.client.domain.Protocol
 import fi.decentri.client.domain.TransactionVO
+import fi.decentri.event.DefiEventDTO
 import fi.decentri.whalespotter.network.Network
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -28,6 +29,10 @@ class DecentrifiClient(
         } else {
             null
         }
+    }
+
+    suspend fun getEvents(txId: String, network: Network): List<DefiEventDTO> {
+        return httpClient.get("$baseUrl/events/decode/$txId?network=${network.name}").body()
     }
 
     suspend fun getProtocols(): List<Protocol> {
