@@ -1,17 +1,16 @@
 package fi.decentri.alchemy
 
 import com.google.gson.JsonParser
+import fi.decentri.whalespotter.network.Network
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Component
 
-@Component
-class AlchemyClient(
+abstract class AlchemyClient(
+    private val url: String,
     private val httpClient: HttpClient,
-    @Value("\${ethereum.url}") private val ethereumUrl: String,
+    val network: Network
 ) {
 
     suspend fun getTransactions(user: String): List<String> {
@@ -25,7 +24,7 @@ class AlchemyClient(
             )
         )
 
-        val response: String = httpClient.post(ethereumUrl) {
+        val response: String = httpClient.post(url) {
             contentType(ContentType.Application.Json)
             setBody(request)
         }.body()

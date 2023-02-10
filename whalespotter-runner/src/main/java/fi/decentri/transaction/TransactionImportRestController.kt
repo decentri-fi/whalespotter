@@ -2,7 +2,7 @@ package fi.decentri.transaction
 
 import fi.decentri.transaction.importer.TransactionImporter
 import kotlinx.coroutines.runBlocking
-import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -14,6 +14,7 @@ class TransactionImportRestController(private val transactionImporter: Transacti
 
     @PostMapping("/import/{userId}")
     fun import(@PathVariable("userId") userId: String) = runBlocking {
-        return@runBlocking transactionImporter.import(userId)
+        transactionImporter.import(userId)
+        ResponseEntity.ok()
     }
 }

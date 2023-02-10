@@ -19,7 +19,7 @@ import java.util.*
 class TransactionImporter(
     private val transactionService: TransactionService,
     private val decentrifiClient: DecentrifiClient,
-    private val alchemyClient: AlchemyClient,
+    private val alchemyClients: List<AlchemyClient>,
     private val defiEventImporter: DefiEventImporter
 ) {
 
@@ -27,36 +27,39 @@ class TransactionImporter(
 
     suspend fun import(user: String) = coroutineScope {
         val semaphore = Semaphore(10)
-        val transactionHashes = alchemyClient.getTransactions(user)
-        val savedTransactions = transactionHashes
-            .filter {
-                !transactionService.contains(it)
-            }
-            .map {
-                async {
-                    semaphore.withPermit {
-                        decentrifiClient.getTransaction(it, Network.ETHEREUM)
-                    }
-                }
-            }.awaitAll()
-            .filterNotNull()
-            .map { txVO ->
-                Transaction(
-                    id = txVO.hash,
-                    network = Network.ETHEREUM,
-                    from = txVO.from,
-                    to = txVO.to,
-                    block = txVO.blockNumber.toString(),
-                    time = Date(txVO.time * 1000),
-                    value = txVO.value.toString()
-                )
-            }
 
-        val transactions = transactionService.save(savedTransactions)
-        transactions.forEach {
-            defiEventImporter.import(it)
+        alchemyClients.map {
+            it.getTransactions(user)
+        }.forEach {transactionHashes ->
+            val savedTransactions = transactionHashes
+                .filter {
+                    !transactionService.contains(it)
+                }
+                .map {
+                    async {
+                        semaphore.withPermit {
+                            decentrifiClient.getTransaction(it, Network.ETHEREUM)
+                        }
+                    }
+                }.awaitAll()
+                .filterNotNull()
+                .map { txVO ->
+                    Transaction(
+                        id = txVO.hash,
+                        network = Network.ETHEREUM,
+                        from = txVO.from,
+                        to = txVO.to,
+                        block = txVO.blockNumber.toString(),
+                        time = Date(txVO.time * 1000),
+                        value = txVO.value.toString()
+                    )
+                }
+
+            val transactions = transactionService.save(savedTransactions)
+            transactions.forEach {
+                defiEventImporter.import(it)
+            }
+            logger.info("Saved ${transactions.size} transactions")
         }
-        logger.info("Saved ${transactions.size} transactions")
-        return@coroutineScope transactions
     }
 }
