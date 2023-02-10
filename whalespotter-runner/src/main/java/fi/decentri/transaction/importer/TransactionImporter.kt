@@ -29,8 +29,9 @@ class TransactionImporter(
         val semaphore = Semaphore(10)
 
         alchemyClients.map {
-            it.getTransactions(user)
-        }.forEach {transactionHashes ->
+            it.network to it.getTransactions(user)
+        }.forEach { entry ->
+            val transactionHashes = entry.second
             val savedTransactions = transactionHashes
                 .filter {
                     !transactionService.contains(it)
@@ -38,7 +39,7 @@ class TransactionImporter(
                 .map {
                     async {
                         semaphore.withPermit {
-                            decentrifiClient.getTransaction(it, Network.ETHEREUM)
+                            decentrifiClient.getTransaction(it, entry.first)
                         }
                     }
                 }.awaitAll()
