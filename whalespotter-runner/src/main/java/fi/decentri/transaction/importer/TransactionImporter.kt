@@ -13,6 +13,7 @@ import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Configuration
+import org.springframework.scheduling.annotation.Async
 import java.util.*
 
 @Configuration
@@ -25,6 +26,7 @@ class TransactionImporter(
 
     val logger = LoggerFactory.getLogger(this::class.java)
 
+    @Async
     suspend fun import(user: String) = coroutineScope {
         val semaphore = Semaphore(10)
 
