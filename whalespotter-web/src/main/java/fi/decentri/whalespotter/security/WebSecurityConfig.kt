@@ -21,6 +21,7 @@ class WebSecurityConfig {
                 it
                     .requestMatchers(HttpMethod.OPTIONS).permitAll()
                     .requestMatchers("/actuator/**").permitAll()
+                    .requestMatchers("/whales**").permitAll()
                     .anyRequest().authenticated()
 
             }
