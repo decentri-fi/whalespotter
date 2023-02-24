@@ -26,6 +26,10 @@ class DecentrifiClient(
         return httpClient.get("$baseUrl/ens/by-address/${address}").body()
     }
 
+    suspend fun getAvatar(ens: String): Map<String, String> {
+        return httpClient.get("$baseUrl/ens/by-name/${ens}/avatar").body()
+    }
+
     suspend fun getTransaction(txId: String, network: Network): TransactionVO? {
         val retVal = httpClient.get("$baseUrl/networks/${network.slug}/tx/$txId")
         return if (retVal.status.isSuccess()) {
