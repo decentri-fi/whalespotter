@@ -1,7 +1,9 @@
-package fi.decentri.whalespotter.account
+package fi.decentri.whalespotter.account.rest
 
-import fi.decentri.whalespotter.decentrifi.DecentrifiClient
-import fi.decentri.whalespotter.network.Network
+import fi.decentri.whalespotter.account.Account
+import fi.decentri.whalespotter.account.service.AccountService
+import fi.decentri.whalespotter.account.vo.AccountVO
+import fi.decentri.whalespotter.membership.MembershipService
 import kotlinx.coroutines.runBlocking
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
@@ -13,7 +15,7 @@ import java.security.Principal
 @RequestMapping("/account")
 class AccountRestController(
     private val accountService: AccountService,
-    private val decentrifiClient: DecentrifiClient
+    private val membershipService: MembershipService
 ) {
 
     @GetMapping
@@ -25,12 +27,7 @@ class AccountRestController(
         return runBlocking {
             AccountVO(
                 id = id!!,
-                member = decentrifiClient.getERC5511Balance(
-                    "0x2953399124f0cbb46d2cbacd8a89cf0599974963",
-                    id!!,
-                    "59544766117376618043978085178500018507573765124387247653177172736636843196516",
-                    network = Network.POLYGON
-                ).balance > 0
+                member = membershipService.isMember(id!!)
             )
         }
     }

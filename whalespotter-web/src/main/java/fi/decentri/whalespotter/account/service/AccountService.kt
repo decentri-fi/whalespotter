@@ -1,6 +1,7 @@
-package fi.decentri.whalespotter.account
+package fi.decentri.whalespotter.account.service
 
-import fi.decentri.whalespotter.decentrifi.DecentrifiClient
+import fi.decentri.whalespotter.account.Account
+import fi.decentri.whalespotter.account.AccountRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

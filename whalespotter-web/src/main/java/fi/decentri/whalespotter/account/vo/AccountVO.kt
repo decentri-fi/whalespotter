@@ -1,4 +1,4 @@
-package fi.decentri.whalespotter.account
+package fi.decentri.whalespotter.account.vo
 
 class AccountVO(
     val id: String,
