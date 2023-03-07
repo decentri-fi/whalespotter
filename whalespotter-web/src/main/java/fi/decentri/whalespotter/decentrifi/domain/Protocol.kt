@@ -1,4 +1,4 @@
-package fi.decentri.whalespotter.decentrifi
+package fi.decentri.whalespotter.decentrifi.domain
 
 class Protocol(
     val name: String,
