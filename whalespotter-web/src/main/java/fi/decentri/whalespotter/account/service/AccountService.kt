@@ -18,7 +18,7 @@ class AccountService(
     @Transactional
     fun getAccountInfo(owner: String): Account {
         val account = accountRepository.findById(owner)
-        account.orElseGet {
+        return account.orElseGet {
             runBlocking {
                 try {
                     whalespotterImporterClient.doImport(owner.lowercase())
