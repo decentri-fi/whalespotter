@@ -12,6 +12,6 @@ class WhalespotterImporterClient(
 ) {
 
     suspend fun doImport(user: String) {
-        httpClient.post("${whalespotterRunnerUrl}/transactions/import/$user")
+        httpClient.post("${whalespotterRunnerUrl}/import/$user")
     }
 }
