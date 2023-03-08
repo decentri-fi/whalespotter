@@ -1,6 +1,6 @@
 package fi.decentri.user
 
-import fi.decentri.approval.ApprovalImporter
+import fi.decentri.allowance.ApprovalImporter
 import fi.decentri.transaction.importer.TransactionImporter
 import kotlinx.coroutines.runBlocking
 import org.springframework.http.ResponseEntity

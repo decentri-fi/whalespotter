@@ -1,4 +1,4 @@
-package fi.decentri.approval
+package fi.decentri.allowance
 
 import fi.decentri.whalespotter.approval.Approval
 import fi.decentri.whalespotter.approval.ApprovalRepository

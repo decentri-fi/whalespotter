@@ -1,6 +1,6 @@
-package fi.decentri.approval.cron
+package fi.decentri.allowance.cron
 
-import fi.decentri.approval.ApprovalImporter
+import fi.decentri.allowance.ApprovalImporter
 import fi.decentri.whalespotter.fish.repo.FishRepository
 import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory

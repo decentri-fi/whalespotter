@@ -1,4 +1,4 @@
-package fi.decentri.approval
+package fi.decentri.allowance
 
 import com.google.gson.JsonParser
 import com.google.gson.internal.LinkedTreeMap
@@ -7,7 +7,6 @@ import fi.decentri.decenrifi.domain.TokenVO
 import fi.decentri.event.DefiEventDTO
 import fi.decentri.whalespotter.approval.Approval
 import fi.decentri.whalespotter.event.DefiEventType
-import fi.decentri.whalespotter.fish.repo.FishRepository
 import fi.decentri.whalespotter.network.Network
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
@@ -20,22 +19,20 @@ import java.math.BigInteger
 @Component
 class ApprovalImporter(
     private val decentrifiClient: DecentrifiClient,
-    private val approvalService: ApprovalService,
-    private val fishRepository: FishRepository
+    private val approvalService: ApprovalService
 ) {
 
     val logger = LoggerFactory.getLogger(this::class.java)
     val approvalTopic = "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"
 
-    private fun getFishAdresses() = fishRepository.findAll().map {
-        it.address.lowercase()
-    }
-
     @Async
     suspend fun import(it: String) {
         logger.info("Importing approvals for $it")
         Network.values().map { network ->
-            importForNetwork(it.lowercase(), network)
+            val allowances = getAllowancesForNetwork(it.lowercase(), network)
+            approvalService.updateApprovals(
+                it.lowercase(), allowances, network
+            )
         }
     }
 
@@ -44,9 +41,7 @@ class ApprovalImporter(
         network: Network,
         tokens: List<TokenVO>
     ): List<DefiEventDTO> {
-        val result = decentrifiClient.listenForTransactionLogs(tokens.map {
-            it.address
-        }, approvalTopic)
+        val result = fetchApprovalEventsForTokens(tokens)
 
         val events = JsonParser.parseString(result).asJsonObject["result"].asJsonArray.map {
             it.asJsonObject["transactionHash"]
@@ -71,50 +66,49 @@ class ApprovalImporter(
         }
     }
 
-    private suspend fun importForNetwork(owner: String, network: Network) {
+    private suspend fun fetchApprovalEventsForTokens(tokens: List<TokenVO>) =
+        decentrifiClient.listenForTransactionLogs(tokens.map {
+            it.address
+        }, approvalTopic)
+
+    private suspend fun getAllowancesForNetwork(owner: String, network: Network): List<Approval> {
         try {
             val tokens = decentrifiClient.getTokens(network)
             if (tokens.isEmpty()) {
                 logger.info("No tokens found for $network")
-                return
+                return emptyList()
             }
 
-            val allowances = getApprovalEvents(
+            return getApprovalEvents(
                 owner, network, tokens
             ).mapNotNull { event ->
-                toAllowance(event, network)
+                event.toAllowance(network)
+            }.filter {
+                it.amount > BigInteger.ZERO
             }
-
-            approvalService.updateApprovals(
-                owner, allowances, network
-            )
         } catch (ex: Exception) {
-            logger.error("error importing approvals for $network", ex)
+            logger.error("error fetching allowances for $network and owner $owner", ex)
+            return emptyList()
         }
     }
 
-    private suspend fun toAllowance(
-        event: DefiEventDTO,
+    private suspend fun DefiEventDTO.toAllowance(
         network: Network
     ) = try {
-        val user = event.metadata["owner"] as String
-        val spender = event.metadata["spender"] as String
-        val asset = (event.metadata["asset"] as LinkedTreeMap<String, Any>)["address"].toString()
+        val user = metadata["owner"] as String
+        val spender = metadata["spender"] as String
+        val asset = (metadata["asset"] as LinkedTreeMap<String, Any>)["address"].toString()
         val amount = decentrifiClient.getAllowance(
             user, spender, asset, network
         )
 
-        if (amount > BigInteger.ZERO) {
-            Approval(
-                owner = user.lowercase(),
-                spender = spender.lowercase(),
-                amount = amount,
-                token = asset,
-                network = network
-            )
-        } else {
-            null
-        }
+        Approval(
+            owner = user.lowercase(),
+            spender = spender.lowercase(),
+            amount = amount,
+            token = asset,
+            network = network
+        )
     } catch (ex: Exception) {
         logger.error("Error while importing allowance", ex)
         null
