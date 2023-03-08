@@ -1,12 +1,11 @@
 package fi.decentri.claimable
 
-import fi.decentri.client.DecentrifiClient
+import fi.decentri.decenrifi.DecentrifiClient
 import fi.decentri.whalespotter.fish.repo.FishRepository
 import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.EnableScheduling
-import org.springframework.scheduling.annotation.Scheduled
 
 @Configuration
 @EnableScheduling

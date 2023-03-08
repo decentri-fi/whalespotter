@@ -1,4 +1,4 @@
-package fi.decentri
+package fi.decentri.config
 
 import com.fasterxml.jackson.module.kotlin.jsonMapper
 import io.ktor.client.*

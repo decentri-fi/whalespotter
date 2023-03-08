@@ -1,6 +1,6 @@
 package fi.decentri.ens
 
-import fi.decentri.client.DecentrifiClient
+import fi.decentri.decenrifi.DecentrifiClient
 import fi.decentri.whalespotter.whale.WhaleRepository
 import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory

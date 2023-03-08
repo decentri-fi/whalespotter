@@ -1,7 +1,7 @@
 package fi.decentri.transaction.importer
 
 import fi.decentri.alchemy.AlchemyClient
-import fi.decentri.client.DecentrifiClient
+import fi.decentri.decenrifi.DecentrifiClient
 import fi.decentri.event.DefiEventImporter
 import fi.decentri.transaction.service.TransactionService
 import fi.decentri.whalespotter.transaction.data.Transaction
@@ -61,7 +61,10 @@ class TransactionImporter(
             transactions.forEach {
                 defiEventImporter.import(it)
             }
-            logger.info("Saved ${transactions.size} transactions")
+
+            if(transactions.isNotEmpty()) {
+                logger.info("Imported ${transactions.size} transactions from ${entry.first} for user $user")
+            }
         }
     }
 }

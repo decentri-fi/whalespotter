@@ -1,8 +1,6 @@
-package fi.decentri.client
+package fi.decentri.decenrifi
 
-import fi.decentri.client.domain.Claimable
-import fi.decentri.client.domain.Protocol
-import fi.decentri.client.domain.TransactionVO
+import fi.decentri.decenrifi.domain.*
 import fi.decentri.event.DefiEventDTO
 import fi.decentri.whalespotter.network.Network
 import io.ktor.client.*
@@ -10,6 +8,7 @@ import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import org.springframework.stereotype.Service
+import java.math.BigInteger
 
 @Service
 class DecentrifiClient(
@@ -17,6 +16,26 @@ class DecentrifiClient(
 ) {
 
     private val baseUrl = "https://api.decentri.fi"
+
+
+    suspend fun listenForTransactionLogs(contracts: List<String>, topic: String): String {
+        return httpClient.post("$baseUrl/networks/ethereum/events/logs") {
+            contentType(ContentType.Application.Json)
+            this.setBody(
+                GetEventLogsCommand(
+                    addresses = contracts,
+                    topic = topic,
+                    optionalTopics = listOf(
+                        "0x00000000000000000000000083a524af3cf8eb146132a2459664f7680a5515be"
+                    )
+                )
+            )
+        }.body()
+    }
+
+    suspend fun getTokens(network: Network) : List<TokenVO>{
+        return httpClient.get("$baseUrl/erc20/${network.name}").body()
+    }
 
     suspend fun getClaimables(address: String, protocol: Protocol): List<Claimable> {
         return httpClient.get("$baseUrl/${protocol.slug}/$address/claimables").body()
@@ -41,6 +60,10 @@ class DecentrifiClient(
 
     suspend fun getEvents(txId: String, network: Network): List<DefiEventDTO> {
         return httpClient.get("$baseUrl/events/decode/$txId?network=${network.name}").body()
+    }
+
+    suspend fun getAllowance(owner: String, spender: String, token: String, network: Network): BigInteger {
+        return httpClient.get("$baseUrl/erc20/${network.name}/allowance/$token/$owner/$spender").body()
     }
 
     suspend fun getProtocols(): List<Protocol> {

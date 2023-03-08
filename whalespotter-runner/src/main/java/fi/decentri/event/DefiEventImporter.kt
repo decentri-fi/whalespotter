@@ -1,7 +1,7 @@
 package fi.decentri.event
 
 import com.google.gson.Gson
-import fi.decentri.client.DecentrifiClient
+import fi.decentri.decenrifi.DecentrifiClient
 import fi.decentri.whalespotter.event.DefiEvent
 import fi.decentri.whalespotter.event.DefiEventRepository
 import fi.decentri.whalespotter.transaction.data.Transaction
@@ -36,6 +36,6 @@ class DefiEventImporter(
                 logger.error("Error importing event ${it.type} for transaction ${transaction.id}")
             }
         }
-        logger.info("Saved ${events.size} events for transaction ${transaction.id}")
+        logger.debug("Saved ${events.size} events for transaction ${transaction.id}")
     }
 }
