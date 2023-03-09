@@ -1,15 +1,10 @@
 pipeline {
     agent any
     stages {
-        stage('compile') {
-            steps {
-                sh './mvnw clean compile'
-            }
-        }
         stage('Package') {
              steps {
                  echo "-=- packaging project -=-"
-                 sh "./mvnw package -DskipTests"
+                 sh "./mvnw clean package"
              }
         }
         stage('Docker Package') {
