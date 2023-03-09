@@ -73,6 +73,10 @@ class DecentrifiClient(
         }
     }
 
+    suspend fun getEvents(txId: String, network: Network, eventType: DefiEventType): List<DefiEventDTO> {
+        return httpClient.get("$baseUrl/events/decode/$txId?network=${network.name}&type=${eventType.name}").body()
+    }
+
     suspend fun getEvents(txId: String, network: Network): List<DefiEventDTO> {
         return httpClient.get("$baseUrl/events/decode/$txId?network=${network.name}").body()
     }

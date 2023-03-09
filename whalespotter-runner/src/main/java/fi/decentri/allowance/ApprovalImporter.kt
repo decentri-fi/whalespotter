@@ -43,7 +43,6 @@ class ApprovalImporter(
     ): List<DefiEventDTO> {
         val result = fetchApprovalEventsForTokens(tokens, owner, network)
 
-
         val jsonElement = JsonParser.parseString(result).asJsonObject["result"]
 
         if (jsonElement == null || jsonElement.isJsonNull) {
@@ -60,11 +59,11 @@ class ApprovalImporter(
             try {
                 semaphore.withPermit {
                     withTimeout(5000) {
-                        decentrifiClient.getEvents(it.asString, network)
+                        decentrifiClient.getEvents(it.asString, network, DefiEventType.APPROVAL)
                     }
                 }
             } catch (ex: Exception) {
-                logger.error("timeout for $it", ex)
+                logger.error("timeout for tx $it on network $network")
                 emptyList()
             }
         }.filter {
