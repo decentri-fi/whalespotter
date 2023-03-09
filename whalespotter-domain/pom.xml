@@ -25,7 +25,7 @@
         <dependency>
             <groupId>fi.decentri</groupId>
             <artifactId>whalespotter-decentrifi-client</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
