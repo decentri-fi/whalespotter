@@ -4,6 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>whalespotter-domain</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+
     <parent>
         <groupId>fi.decentri</groupId>
         <artifactId>whalespotter-parent</artifactId>
@@ -16,29 +19,13 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>fi.decentri</groupId>
-            <artifactId>whalespotter-decentrifi-client</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.web3j</groupId>
-            <artifactId>abi</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.web3j</groupId>
-            <artifactId>utils</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.web3j</groupId>
-            <artifactId>core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.web3j</groupId>
-            <artifactId>crypto</artifactId>
+            <groupId>fi.decentri</groupId>
+            <artifactId>whalespotter-decentrifi-client</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>

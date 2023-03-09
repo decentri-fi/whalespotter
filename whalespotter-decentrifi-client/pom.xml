@@ -4,6 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>whalespotter-decentrifi-client</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
     <parent>
         <groupId>fi.decentri</groupId>
         <artifactId>whalespotter-parent</artifactId>
@@ -14,6 +16,31 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>core</artifactId>
+            <version>${web3j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>utils</artifactId>
+            <version>${web3j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>geth</artifactId>
+            <version>${web3j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>crypto</artifactId>
+            <version>${web3j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>abi</artifactId>
+            <version>${web3j.version}</version>
         </dependency>
         <dependency>
             <groupId>io.ktor</groupId>

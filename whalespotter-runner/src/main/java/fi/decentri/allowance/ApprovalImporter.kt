@@ -2,12 +2,12 @@ package fi.decentri.allowance
 
 import com.google.gson.JsonParser
 import com.google.gson.internal.LinkedTreeMap
-import fi.decentri.whalespotter.decentrifi.domain.DefiEventDTO
 import fi.decentri.whalespotter.approval.Approval
 import fi.decentri.whalespotter.decentrifi.DecentrifiClient
+import fi.decentri.whalespotter.decentrifi.domain.DefiEventDTO
+import fi.decentri.whalespotter.decentrifi.domain.DefiEventType
 import fi.decentri.whalespotter.decentrifi.domain.Network
 import fi.decentri.whalespotter.decentrifi.domain.TokenVO
-import fi.decentri.whalespotter.decentrifi.domain.DefiEventType
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withTimeout
@@ -41,9 +41,17 @@ class ApprovalImporter(
         network: Network,
         tokens: List<TokenVO>
     ): List<DefiEventDTO> {
-        val result = fetchApprovalEventsForTokens(tokens)
+        val result = fetchApprovalEventsForTokens(tokens, owner, network)
 
-        val events = JsonParser.parseString(result).asJsonObject["result"].asJsonArray.map {
+
+        val jsonElement = JsonParser.parseString(result).asJsonObject["result"]
+
+        if (jsonElement == null || jsonElement.isJsonNull) {
+            logger.info("Unable to parse result for $owner on $network")
+            return emptyList()
+        }
+
+        val events = jsonElement.asJsonArray.map {
             it.asJsonObject["transactionHash"]
         }
 
@@ -51,7 +59,7 @@ class ApprovalImporter(
         return events.flatMap {
             try {
                 semaphore.withPermit {
-                    withTimeout(2000) {
+                    withTimeout(5000) {
                         decentrifiClient.getEvents(it.asString, network)
                     }
                 }
@@ -66,10 +74,10 @@ class ApprovalImporter(
         }
     }
 
-    private suspend fun fetchApprovalEventsForTokens(tokens: List<TokenVO>) =
-        decentrifiClient.listenForTransactionLogs(tokens.map {
+    private suspend fun fetchApprovalEventsForTokens(tokens: List<TokenVO>, user: String, network: Network) =
+        decentrifiClient.listenForApprovalLogs(tokens.map {
             it.address
-        }, approvalTopic)
+        }, approvalTopic, user, network)
 
     private suspend fun getAllowancesForNetwork(owner: String, network: Network): List<Approval> {
         try {

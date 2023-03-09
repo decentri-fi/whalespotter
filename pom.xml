@@ -28,10 +28,10 @@
     </properties>
 
     <modules>
+        <module>whalespotter-decentrifi-client</module>
         <module>whalespotter-web</module>
         <module>whalespotter-runner</module>
         <module>whalespotter-domain</module>
-        <module>whalespotter-decentrifi-client</module>
     </modules>
 
     <dependencies>
@@ -50,31 +50,6 @@
                 <version>2022.0.1</version>
                 <scope>import</scope>
                 <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>org.web3j</groupId>
-                <artifactId>core</artifactId>
-                <version>${web3j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.web3j</groupId>
-                <artifactId>utils</artifactId>
-                <version>${web3j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.web3j</groupId>
-                <artifactId>geth</artifactId>
-                <version>${web3j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.web3j</groupId>
-                <artifactId>crypto</artifactId>
-                <version>${web3j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.web3j</groupId>
-                <artifactId>abi</artifactId>
-                <version>${web3j.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -6,6 +6,8 @@ import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import org.springframework.stereotype.Service
+import org.web3j.abi.TypeEncoder
+import org.web3j.abi.datatypes.Address
 import java.math.BigInteger
 
 @Service
@@ -14,7 +16,6 @@ class DecentrifiClient(
 ) {
 
     private val baseUrl = "https://api.decentri.fi"
-
 
 
     suspend fun getERC5511Balance(
@@ -27,15 +28,20 @@ class DecentrifiClient(
             .body()
     }
 
-    suspend fun listenForTransactionLogs(contracts: List<String>, topic: String): String {
-        return httpClient.post("$baseUrl/networks/ethereum/events/logs") {
+    suspend fun listenForApprovalLogs(
+        contracts: List<String>,
+        topic: String,
+        user: String,
+        network: Network
+    ): String {
+        return httpClient.post("$baseUrl/networks/${network.slug}/events/logs") {
             contentType(ContentType.Application.Json)
             this.setBody(
                 GetEventLogsCommand(
                     addresses = contracts,
                     topic = topic,
                     optionalTopics = listOf(
-                        "0x00000000000000000000000083a524af3cf8eb146132a2459664f7680a5515be"
+                        "0x${TypeEncoder.encode(Address(user))}"
                     )
                 )
             )
