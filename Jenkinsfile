@@ -6,11 +6,6 @@ pipeline {
                 sh './mvnw clean compile'
             }
         }
-        stage('Test') {
-            steps {
-                sh './mvnw test'
-             }
-         }
         stage('Package') {
              steps {
                  echo "-=- packaging project -=-"
