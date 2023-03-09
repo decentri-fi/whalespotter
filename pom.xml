@@ -31,6 +31,7 @@
         <module>whalespotter-web</module>
         <module>whalespotter-runner</module>
         <module>whalespotter-domain</module>
+        <module>whalespotter-decentrifi-client</module>
     </modules>
 
     <dependencies>

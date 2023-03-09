@@ -1,6 +1,6 @@
 package fi.decentri.whalespotter.approval
 
-import fi.decentri.whalespotter.network.Network
+import fi.decentri.whalespotter.decentrifi.domain.Network
 import jakarta.persistence.*
 import java.math.BigInteger
 

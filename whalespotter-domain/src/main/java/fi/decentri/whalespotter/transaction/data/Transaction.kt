@@ -1,8 +1,7 @@
 package fi.decentri.whalespotter.transaction.data
 
-import fi.decentri.whalespotter.network.Network
+import fi.decentri.whalespotter.decentrifi.domain.Network
 import jakarta.persistence.*
-import java.math.BigInteger
 import java.util.*
 
 @Entity

@@ -1,4 +1,4 @@
-package fi.decentri.whalespotter.network
+package fi.decentri.whalespotter.decentrifi.domain
 
 enum class Network(val slug: String, val logo: String) {
     ETHEREUM("ethereum", "ethereum.png"),

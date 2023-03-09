@@ -1,6 +1,6 @@
 package fi.decentri.claimable
 
-import fi.decentri.decenrifi.DecentrifiClient
+import fi.decentri.whalespotter.decentrifi.DecentrifiClient
 import fi.decentri.whalespotter.fish.repo.FishRepository
 import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory
@@ -16,7 +16,7 @@ class CheckClaimablesRunner(
 
     val logger = LoggerFactory.getLogger(this::class.java)
 
-  //  @Scheduled(fixedDelay = 10000)
+    //  @Scheduled(fixedDelay = 10000)
     fun init() = runBlocking {
         logger.info("starting batch to find claimables")
         val allProtocols = decentrifiClient.getProtocols()

@@ -1,9 +1,9 @@
 package fi.decentri.transaction.importer
 
 import fi.decentri.alchemy.AlchemyClient
-import fi.decentri.decenrifi.DecentrifiClient
 import fi.decentri.event.DefiEventImporter
 import fi.decentri.transaction.service.TransactionService
+import fi.decentri.whalespotter.decentrifi.DecentrifiClient
 import fi.decentri.whalespotter.transaction.data.Transaction
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -62,7 +62,7 @@ class TransactionImporter(
                 defiEventImporter.import(it)
             }
 
-            if(transactions.isNotEmpty()) {
+            if (transactions.isNotEmpty()) {
                 logger.info("Imported ${transactions.size} transactions from ${entry.first} for user $user")
             }
         }

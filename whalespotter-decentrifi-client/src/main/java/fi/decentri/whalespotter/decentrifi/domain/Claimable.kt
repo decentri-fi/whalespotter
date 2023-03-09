@@ -1,4 +1,4 @@
-package fi.decentri.decenrifi.domain
+package fi.decentri.whalespotter.decentrifi.domain
 
 import java.math.BigDecimal
 

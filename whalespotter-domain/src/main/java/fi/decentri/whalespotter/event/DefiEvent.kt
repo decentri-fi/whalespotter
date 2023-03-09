@@ -1,11 +1,10 @@
 package fi.decentri.whalespotter.event
 
+import fi.decentri.whalespotter.decentrifi.domain.DefiEventType
 import jakarta.persistence.*
 import fi.decentri.whalespotter.transaction.data.Transaction
 import org.hibernate.annotations.JdbcTypeCode
-import org.hibernate.annotations.Type
 import org.hibernate.type.SqlTypes
-import java.sql.SQLType
 
 @Entity
 @Table(name = "defi_events")

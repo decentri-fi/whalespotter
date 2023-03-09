@@ -1,6 +1,6 @@
 package fi.decentri.alchemy
 
-import fi.decentri.whalespotter.network.Network
+import fi.decentri.whalespotter.decentrifi.domain.Network
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*

@@ -1,7 +1,7 @@
 package fi.decentri.event
 
 import com.google.gson.Gson
-import fi.decentri.decenrifi.DecentrifiClient
+import fi.decentri.whalespotter.decentrifi.DecentrifiClient
 import fi.decentri.whalespotter.event.DefiEvent
 import fi.decentri.whalespotter.event.DefiEventRepository
 import fi.decentri.whalespotter.transaction.data.Transaction
@@ -17,7 +17,6 @@ class DefiEventImporter(
 ) {
 
     val logger = LoggerFactory.getLogger(this::class.java)
-    val gson = Gson()
 
     @Transactional
     suspend fun import(transaction: Transaction) {

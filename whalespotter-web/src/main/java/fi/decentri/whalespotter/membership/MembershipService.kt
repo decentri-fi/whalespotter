@@ -1,7 +1,7 @@
 package fi.decentri.whalespotter.membership
 
 import fi.decentri.whalespotter.decentrifi.DecentrifiClient
-import fi.decentri.whalespotter.network.Network
+import fi.decentri.whalespotter.decentrifi.domain.Network
 import org.springframework.stereotype.Component
 
 private const val OPENSEA_COLLECTION = "0x2953399124f0cbb46d2cbacd8a89cf0599974963"

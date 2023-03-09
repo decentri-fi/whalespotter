@@ -2,12 +2,12 @@ package fi.decentri.allowance
 
 import com.google.gson.JsonParser
 import com.google.gson.internal.LinkedTreeMap
-import fi.decentri.decenrifi.DecentrifiClient
-import fi.decentri.decenrifi.domain.TokenVO
-import fi.decentri.event.DefiEventDTO
+import fi.decentri.whalespotter.decentrifi.domain.DefiEventDTO
 import fi.decentri.whalespotter.approval.Approval
-import fi.decentri.whalespotter.event.DefiEventType
-import fi.decentri.whalespotter.network.Network
+import fi.decentri.whalespotter.decentrifi.DecentrifiClient
+import fi.decentri.whalespotter.decentrifi.domain.Network
+import fi.decentri.whalespotter.decentrifi.domain.TokenVO
+import fi.decentri.whalespotter.decentrifi.domain.DefiEventType
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withTimeout

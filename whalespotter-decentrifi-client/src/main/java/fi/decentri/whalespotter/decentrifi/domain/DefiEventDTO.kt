@@ -1,6 +1,5 @@
-package fi.decentri.event
+package fi.decentri.whalespotter.decentrifi.domain
 
-import fi.decentri.whalespotter.event.DefiEventType
 
 class DefiEventDTO (
     val type: DefiEventType,

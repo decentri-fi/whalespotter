@@ -1,4 +1,4 @@
-package fi.decentri.decenrifi.domain
+package fi.decentri.whalespotter.decentrifi.domain
 
 class GetEventLogsCommand(
         val addresses: List<String>,

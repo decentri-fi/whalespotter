@@ -1,8 +1,6 @@
-package fi.decentri.decenrifi
+package fi.decentri.whalespotter.decentrifi
 
-import fi.decentri.decenrifi.domain.*
-import fi.decentri.event.DefiEventDTO
-import fi.decentri.whalespotter.network.Network
+import fi.decentri.whalespotter.decentrifi.domain.*
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -17,6 +15,17 @@ class DecentrifiClient(
 
     private val baseUrl = "https://api.decentri.fi"
 
+
+
+    suspend fun getERC5511Balance(
+        token: String,
+        address: String,
+        tokenId: String,
+        network: Network
+    ): BalanceResponse {
+        return httpClient.get("$baseUrl/nft/${token}/${address}/balance-of/${tokenId}?network=${network.name}")
+            .body()
+    }
 
     suspend fun listenForTransactionLogs(contracts: List<String>, topic: String): String {
         return httpClient.post("$baseUrl/networks/ethereum/events/logs") {
@@ -33,7 +42,7 @@ class DecentrifiClient(
         }.body()
     }
 
-    suspend fun getTokens(network: Network) : List<TokenVO>{
+    suspend fun getTokens(network: Network): List<TokenVO> {
         return httpClient.get("$baseUrl/erc20/${network.name}").body()
     }
 

@@ -2,7 +2,7 @@ package fi.decentri.allowance
 
 import fi.decentri.whalespotter.approval.Approval
 import fi.decentri.whalespotter.approval.ApprovalRepository
-import fi.decentri.whalespotter.network.Network
+import fi.decentri.whalespotter.decentrifi.domain.Network
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

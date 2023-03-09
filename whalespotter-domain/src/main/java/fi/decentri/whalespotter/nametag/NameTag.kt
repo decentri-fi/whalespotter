@@ -1,6 +1,6 @@
 package fi.decentri.whalespotter.nametag
 
-import fi.decentri.whalespotter.network.Network
+import fi.decentri.whalespotter.decentrifi.domain.Network
 import jakarta.persistence.*
 
 @Entity
