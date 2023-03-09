@@ -22,6 +22,7 @@ class WebSecurityConfig {
                     .requestMatchers(HttpMethod.OPTIONS).permitAll()
                     .requestMatchers("/actuator/**").permitAll()
                     .requestMatchers("/whales").permitAll()
+                    .requestMatchers("/nametags", "/nametags/**").permitAll()
                     .requestMatchers("/sitemap.xml").permitAll()
                     .anyRequest().authenticated()
 
