@@ -1,7 +1,7 @@
 package fi.decentri.allowance.cron
 
 import fi.decentri.allowance.ApprovalImporter
-import fi.decentri.whalespotter.fish.repo.FishRepository
+import fi.decentri.whalespotter.account.AccountRepository
 import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Configuration
@@ -12,7 +12,7 @@ import kotlin.time.measureTime
 @Configuration
 class AllowanceImportCron(
     private val approvalImporter: ApprovalImporter,
-    private val fishRepository: FishRepository
+    private val accountRepository: AccountRepository
 ) {
 
     val logger = LoggerFactory.getLogger(this::class.java)
@@ -21,10 +21,10 @@ class AllowanceImportCron(
     @Scheduled(fixedDelay = 1000 * 60 * 60) //every hour
     fun importTransactions() = runBlocking {
         val passed = measureTime {
-            fishRepository.findAll().distinctBy {
-                it.address.lowercase()
+            accountRepository.findAll().distinctBy {
+                it.id!!.lowercase()
             }.forEach {
-                approvalImporter.import(it.address.lowercase())
+                approvalImporter.import(it.id!!.lowercase())
             }
         }
         logger.info("Imported approvals in ${passed.inWholeSeconds} seconds")
