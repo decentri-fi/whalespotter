@@ -7,6 +7,7 @@ import fi.decentri.whalespotter.event.DefiEventRepository
 import fi.decentri.whalespotter.transaction.data.Transaction
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Component
@@ -18,6 +19,7 @@ class DefiEventImporter(
     val logger = LoggerFactory.getLogger(this::class.java)
     val gson = Gson()
 
+    @Transactional
     suspend fun import(transaction: Transaction) {
         val events = decentrifiClient.getEvents(
             transaction.id,
