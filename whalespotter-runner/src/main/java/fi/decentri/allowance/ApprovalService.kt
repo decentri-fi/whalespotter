@@ -21,11 +21,11 @@ class ApprovalService(
         }
 
         val newApprovals = approvals.filter { approval ->
-            previousApprovals.none { it.owner == approval.owner && it.spender == approval.spender }
+            previousApprovals.none { it.owner == approval.owner && it.spender == approval.spender && it.token == approval.token }
         }
 
         val droppedApprovals = previousApprovals.filter { approval ->
-            approvals.none { it.owner == approval.owner && it.spender == approval.spender }
+            approvals.none { it.owner == approval.owner && it.spender == approval.spender && it.token == approval.token }
         }
 
         approvalRepository.deleteAll(droppedApprovals)
