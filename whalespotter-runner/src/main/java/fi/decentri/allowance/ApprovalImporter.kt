@@ -46,7 +46,7 @@ class ApprovalImporter(
         val jsonElement = JsonParser.parseString(result).asJsonObject["result"]
 
         if (jsonElement == null || jsonElement.isJsonNull) {
-            logger.info("Unable to parse result for $owner on $network")
+            logger.debug("Unable to parse result for $owner on $network")
             return emptyList()
         }
 
@@ -82,7 +82,6 @@ class ApprovalImporter(
         try {
             val tokens = decentrifiClient.getTokens(network)
             if (tokens.isEmpty()) {
-                logger.info("No tokens found for $network")
                 return emptyList()
             }
 
